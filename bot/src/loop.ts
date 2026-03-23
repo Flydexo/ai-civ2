@@ -1,4 +1,3 @@
-import "dotenv/config";
 import mineflayer from "mineflayer";
 import { Vec3 } from "vec3";
 import { createRequire } from "module";

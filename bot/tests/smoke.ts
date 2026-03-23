@@ -1,7 +1,7 @@
 /**
  * Test de fumée : connect → perceive → act → disconnect
  *
- * Usage: pnpm smoke
+ * Usage: bun smoke
  *
  * Ce test valide que le pipeline d'exécution complet fonctionne :
  * 1. Connexion au serveur

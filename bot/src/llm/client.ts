@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { createOpenAI } from "@ai-sdk/openai";
 
 const provider = process.env.LLM_PROVIDER ?? "deepseek";

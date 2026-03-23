@@ -3,23 +3,21 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx src/index.ts",
-    "smoke": "tsx tests/smoke.ts",
-    "loop": "tsx src/loop.ts",
-    "loop:openai": "LLM_PROVIDER=openai tsx src/loop.ts CivBot_01 10",
-    "loop:deepseek": "LLM_PROVIDER=deepseek tsx src/loop.ts CivBot_01 10"
+    "dev": "bun src/index.ts",
+    "smoke": "bun tests/smoke.ts",
+    "loop": "bun src/loop.ts",
+    "loop:openai": "LLM_PROVIDER=openai bun src/loop.ts CivBot_01 10",
+    "loop:deepseek": "LLM_PROVIDER=deepseek bun src/loop.ts CivBot_01 10"
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.0.0",
     "ai": "^4.0.0",
-    "dotenv": "^16.0.0",
     "mineflayer": "^4.23.0",
     "mineflayer-pathfinder": "^2.4.5",
     "zod": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "tsx": "^4.0.0",
     "typescript": "^5.0.0"
   }
 }
