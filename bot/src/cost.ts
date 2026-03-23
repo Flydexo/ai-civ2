@@ -4,7 +4,7 @@
  */
 
 interface CallRecord {
-  provider: string;
+  model: string;
   inputTokens: number;
   outputTokens: number;
   latencyMs: number;
@@ -13,14 +13,15 @@ interface CallRecord {
 
 const records: CallRecord[] = [];
 
-// Prix par million de tokens (mars 2026 — vérifie si ça a changé)
+// Prix par million de tokens via OpenRouter (mars 2026 — vérifie sur openrouter.ai/models)
 const PRICING: Record<string, { input: number; output: number }> = {
-  openai: { input: 2.5, output: 10.0 },     // GPT-4o
-  deepseek: { input: 0.27, output: 1.10 },   // DeepSeek v3
+  "openai/gpt-4o": { input: 2.5, output: 10.0 },
+  "deepseek/deepseek-chat": { input: 0.27, output: 1.10 },
+  "anthropic/claude-sonnet-4-5": { input: 3.0, output: 15.0 },
 };
 
 export function trackCost(call: Omit<CallRecord, "costUsd">): void {
-  const pricing = PRICING[call.provider] ?? { input: 0, output: 0 };
+  const pricing = PRICING[call.model] ?? { input: 0, output: 0 };
   const costUsd =
     (call.inputTokens / 1_000_000) * pricing.input +
     (call.outputTokens / 1_000_000) * pricing.output;
@@ -29,7 +30,7 @@ export function trackCost(call: Omit<CallRecord, "costUsd">): void {
   records.push(record);
 
   console.log(
-    `  [COST] ${call.provider} | ${call.inputTokens}in + ${call.outputTokens}out | ${call.latencyMs}ms | $${costUsd.toFixed(6)}`
+    `  [COST] ${call.model} | ${call.inputTokens}in + ${call.outputTokens}out | ${call.latencyMs}ms | $${costUsd.toFixed(6)}`
   );
 }
 
@@ -44,7 +45,7 @@ export function printCostSummary(): void {
   const avgCostPerTick = totalCost / records.length;
 
   console.log("\n========== COST SUMMARY ==========");
-  console.log(`Provider:       ${records[0].provider}`);
+  console.log(`Model:          ${records[0].model}`);
   console.log(`Total calls:    ${records.length}`);
   console.log(`Total tokens:   ${totalInput} in + ${totalOutput} out`);
   console.log(`Total cost:     $${totalCost.toFixed(6)}`);

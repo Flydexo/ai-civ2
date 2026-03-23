@@ -1,32 +1,15 @@
-import { createOpenAI } from "@ai-sdk/openai";
+import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 
-const provider = process.env.LLM_PROVIDER ?? "deepseek";
+const modelId = process.env.LLM_MODEL ?? "deepseek/deepseek-chat";
 
-/**
- * Provider OpenAI (GPT-4o)
- */
-const openaiProvider = createOpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const openrouter = createOpenRouter({
+  apiKey: process.env.OPENROUTER_API_KEY,
 });
 
-/**
- * Provider DeepSeek (API compatible OpenAI)
- */
-const deepseekProvider = createOpenAI({
-  apiKey: process.env.DEEPSEEK_API_KEY,
-  baseURL: "https://api.deepseek.com",
-});
-
-/**
- * Retourne le modèle actif selon LLM_PROVIDER.
- */
 export function getModel() {
-  if (provider === "openai") {
-    return openaiProvider("gpt-4o");
-  }
-  return deepseekProvider("deepseek-chat");
+  return openrouter(modelId);
 }
 
-export function getProviderName(): string {
-  return provider;
+export function getModelName(): string {
+  return modelId;
 }

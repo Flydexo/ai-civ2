@@ -1,5 +1,5 @@
 import { generateObject } from "ai";
-import { getModel, getProviderName } from "./client.js";
+import { getModel, getModelName } from "./client.js";
 import { DecisionSchema, type Decision } from "./schemas.js";
 import type { WorldSnapshot } from "../perception.js";
 import { trackCost } from "../cost.js";
@@ -60,7 +60,7 @@ Que fais-tu ?`;
   const elapsed = Date.now() - startTime;
 
   trackCost({
-    provider: getProviderName(),
+    model: getModelName(),
     inputTokens: result.usage?.promptTokens ?? 0,
     outputTokens: result.usage?.completionTokens ?? 0,
     latencyMs: elapsed,
