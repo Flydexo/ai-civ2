@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  minecraft:
+    image: itzg/minecraft-server:java21
+    container_name: mc-server
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "TRUE"
+      VERSION: "1.20.4"
+      TYPE: "PAPER"               # Paper = meilleure perf que Vanilla
+      MEMORY: "2G"
+      ONLINE_MODE: "FALSE"        # Pas d'auth Mojang — obligatoire pour les bots
+      DIFFICULTY: "peaceful"      # Pas de mobs hostiles pour le proto
+      GAMEMODE: "survival"
+      SPAWN_PROTECTION: 0         # Les bots peuvent agir au spawn
+      VIEW_DISTANCE: 10
+      MAX_PLAYERS: 20
+      MOTD: "Minecraft Civ - Dev Server"
+      OPS: ""                     # Pas besoin d'ops pour le moment
+      ALLOW_FLIGHT: "TRUE"        # Évite les faux kicks de mineflayer
+    volumes:
+      - mc-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: mc-health
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 120s          # Paper prend du temps au premier launch
+
+volumes:
+  mc-data:
