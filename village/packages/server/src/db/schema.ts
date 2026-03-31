@@ -1,0 +1,29 @@
+export const SCHEMA_SQL = `
+CREATE TABLE IF NOT EXISTS villagers (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  role TEXT NOT NULL,
+  position_x INTEGER NOT NULL DEFAULT 20,
+  position_y INTEGER NOT NULL DEFAULT 20,
+  schedule TEXT NOT NULL DEFAULT '{}',
+  memory TEXT NOT NULL DEFAULT '{}'
+);
+
+CREATE TABLE IF NOT EXISTS world_objects (
+  id TEXT PRIMARY KEY,
+  type TEXT NOT NULL,
+  position_x INTEGER NOT NULL,
+  position_y INTEGER NOT NULL,
+  zone_id TEXT NOT NULL,
+  state TEXT NOT NULL DEFAULT '{}'
+);
+
+CREATE TABLE IF NOT EXISTS events_log (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  tick INTEGER NOT NULL,
+  game_time TEXT NOT NULL,
+  type TEXT NOT NULL,
+  payload TEXT NOT NULL DEFAULT '{}',
+  created_at INTEGER NOT NULL
+);
+`

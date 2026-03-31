@@ -1,0 +1,17 @@
+{
+  "name": "village",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev": "pnpm --parallel -r run dev",
+    "dev:server": "pnpm --filter @village/server run dev",
+    "dev:client": "pnpm --filter @village/client run dev",
+    "db:migrate": "pnpm --filter @village/server run db:migrate",
+    "db:seed": "pnpm --filter @village/server run db:seed",
+    "build": "pnpm -r run build"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
